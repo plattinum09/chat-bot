@@ -47,6 +47,7 @@ if (!is_null($events['events'])) {
 
 function getMassage($text)
 {
+	echo file_put_contents("text.json",$text);
 	return 'test';
 }
 
