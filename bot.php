@@ -28,6 +28,7 @@ if (!is_null($events['events'])) {
 				'replyToken' => $replyToken,
 				'messages' => [$messages],
 			];
+
 			$post = json_encode($data);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
 
@@ -47,18 +48,10 @@ if (!is_null($events['events'])) {
 
 function getMassage($text)
 {
-	// $tempArray = json_decode("text.json", true);
-	// array_push($data, array('id' => $row['id']));
-	// echo file_put_contents("text.json",$text);
-	$massage = '';
+
 	$file = file_get_contents('text.json');
 	$data = json_decode($file, true);
 	unset($file);//prevent memory leaks for large json.
-	// //insert data here
-	// $data[] = array('data'=>'some data');
-	// //save the file
-	// file_put_contents('data.json',json_encode($data));
-	// unset($data);//release memory
 	
 	if (isset($data[$text])) {
 		return $data[$text];
@@ -67,7 +60,7 @@ function getMassage($text)
 		//save the file
 		file_put_contents('text.json',json_encode($data));
 		unset($data);//release memory
-		return $file;
+		return $text;
 	}
 }
 
