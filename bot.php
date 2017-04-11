@@ -53,7 +53,7 @@ function getMassage($text)
 	$massage = '';
 	$file = file_get_contents('text.json');
 	$data = json_decode($file);
-	// unset($file);//prevent memory leaks for large json.
+	unset($file);//prevent memory leaks for large json.
 	// //insert data here
 	// $data[] = array('data'=>'some data');
 	// //save the file
@@ -65,7 +65,7 @@ function getMassage($text)
 	// }else{
 	// 	$massage = 'none';
 	// }
-	return $data['1+1'];
+	return $data;
 }
 
 echo "OK";
