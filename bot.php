@@ -63,7 +63,7 @@ function getMassage($text)
 	if (isset($data[$text])) {
 		return $data[$text];
 	}else{
-		$data[] = array($text => '');
+		$data = array($text => '');
 		//save the file
 		file_put_contents('text.json',json_encode($data));
 		unset($data);//release memory
