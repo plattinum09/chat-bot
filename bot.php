@@ -52,20 +52,20 @@ function getMassage($text)
 	// echo file_put_contents("text.json",$text);
 	$massage = '';
 	$file = file_get_contents('text.json');
-	$data = json_decode($file);
-	unset($file);//prevent memory leaks for large json.
+	// $data = json_decode($file);
+	// unset($file);//prevent memory leaks for large json.
 	// //insert data here
 	// $data[] = array('data'=>'some data');
 	// //save the file
 	// file_put_contents('data.json',json_encode($data));
 	// unset($data);//release memory
 	
-	if (empty($data[$text])) {
-		$massage = $data[$text];
-	}else{
-		$massage = 'none';
-	}
-	return $massage;
+	// if (empty($data[$text])) {
+	// 	$massage = $data[$text];
+	// }else{
+	// 	$massage = 'none';
+	// }
+	return $file;
 }
 
 echo "OK";
