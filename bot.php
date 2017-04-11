@@ -65,7 +65,7 @@ function getMassage($text)
 	// }else{
 	// 	$massage = 'none';
 	// }
-	return $data['a'];
+	return $data[$text];
 }
 
 echo "OK";
