@@ -47,8 +47,25 @@ if (!is_null($events['events'])) {
 
 function getMassage($text)
 {
-	echo file_put_contents("text.json",$text);
-	return 'test';
+	// $tempArray = json_decode("text.json", true);
+	// array_push($data, array('id' => $row['id']));
+	// echo file_put_contents("text.json",$text);
+	$massage = '';
+	$file = file_get_contents('text.json');
+	$data = json_decode($file);
+	unset($file);//prevent memory leaks for large json.
+	// //insert data here
+	// $data[] = array('data'=>'some data');
+	// //save the file
+	// file_put_contents('data.json',json_encode($data));
+	// unset($data);//release memory
+	
+	if (isset($data[$text])) {
+		$massage = $data[$text];
+	}else{
+		$massage = 'none';
+	}
+	return $massage;
 }
 
 echo "OK";
