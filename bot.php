@@ -60,12 +60,11 @@ function getMassage($text)
 	// file_put_contents('data.json',json_encode($data));
 	// unset($data);//release memory
 	
-	// if (empty($data[$text])) {
-	// 	$massage = $data[$text];
-	// }else{
-	// 	$massage = 'none';
-	// }
-	return $data[$text];
+	if (isset($data[$text])) {
+		return $data[$text];
+	}else{
+		return 'none';
+	}
 }
 
 echo "OK";
