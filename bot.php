@@ -65,7 +65,7 @@ function getMassage($text)
 	// }else{
 	// 	$massage = 'none';
 	// }
-	return $file;
+	return $file['1+1'];
 }
 
 echo "OK";
