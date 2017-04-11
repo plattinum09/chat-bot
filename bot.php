@@ -65,7 +65,7 @@ function getMassage($text)
 	// }else{
 	// 	$massage = 'none';
 	// }
-	return count($data);
+	return $data['a'];
 }
 
 echo "OK";
