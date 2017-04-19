@@ -69,6 +69,7 @@ function getMassage($text)
 	}
 
 	mysqli_close($conn);
+	return "Error: " . $sql . "<br>" . mysqli_error($conn);
 	//prevent memory leaks for large json.
 	if (isset($data[$text])) {
 		return $data[$text];
