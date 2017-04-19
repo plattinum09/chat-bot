@@ -46,14 +46,13 @@ if (!is_null($events['events'])) {
 	}
 }
 
-$dsn = 'mysql:host=ap-cdbr-azure-southeast-b.cloudapp.net;port=3306;dbname=chatbot_db';
+$dsn = 'mysql:host=ap-cdbr-azure-southeast-b.cloudapp.net;dbname=chatbot_db';
 $username = 'bc4dcc5c7e5a47';
 $password = '7de74729';
 $options = array(
     PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
 ); 
 
-$conn = new PDO($dsn, $username, $password, $options);
 
 function getMassage($text)
 {
@@ -61,15 +60,21 @@ function getMassage($text)
 	$data = json_decode($file, true);
 	unset($file);
 
-	$sql = "INSERT INTO test(text) VALUES ('test')";
-	if(mysqli_query($conn, $sql)) {
-    	echo "New record created successfully";
-	} else {
-	    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+	try {
+	$conn = new PDO($dsn, $username, $password, $options);
+	// set the PDO error mode to exception
+	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	$sql = "INSERT INTO test (text)
+	VALUES ('John')";
+	// use exec() because no results are returned
+		$conn->exec($sql);
+		echo "New record created successfully";
 	}
-
-	mysqli_close($conn);
-	return "Error: " . $sql . "<br>" . mysqli_error($conn);
+	catch(PDOException $e)
+	{
+		echo $sql . "<br>" . $e->getMessage();
+	}
+	return $e->getMessage();
 	//prevent memory leaks for large json.
 	if (isset($data[$text])) {
 		return $data[$text];
