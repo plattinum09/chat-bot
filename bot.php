@@ -64,7 +64,7 @@ function getMassage($text,$uid)
 	    // die("Connection failed: " . mysqli_connect_error());
 	    return mysqli_connect_error();
 	}
-	$sql = "SELECT COUNT(*) FROM users WHERE uid_line ='".$uid."';";
+	$sql = "SELECT COUNT(*) FROM users WHERE uid_line ='".$uid."'";
 	if (mysqli_query($conn, $sql)) {
 		$result = mysqli_query($conn, $sql);
 	    // return "New record created successfully";
