@@ -64,17 +64,18 @@ function getMassage($text)
 	$conn = new PDO($dsn, $username, $password, $options);
 	// set the PDO error mode to exception
 	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	$sql = "INSERT INTO test (text)
+	$sql = "INSERT INTO test (msg)
 	VALUES ('John')";
 	// use exec() because no results are returned
 		$conn->exec($sql);
-		echo "New record created successfully";
+		return "New record created successfully";
 	}
 	catch(PDOException $e)
 	{
-		echo $sql . "<br>" . $e->getMessage();
-	}
+		// echo $sql . "<br>" . $e->getMessage();
 	return $e->getMessage();
+		
+	}
 	//prevent memory leaks for large json.
 	if (isset($data[$text])) {
 		return $data[$text];
