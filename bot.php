@@ -19,7 +19,7 @@ if (!is_null($events['events'])) {
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => getMassage($text)
+				'text' => getMassage($text,$event['source']['userId'])
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
@@ -46,32 +46,16 @@ if (!is_null($events['events'])) {
 	}
 }
 
-function getMassage($text)
+$servername = "ap-cdbr-azure-southeast-b.cloudapp.net";
+$username = "bc4dcc5c7e5a47";
+$password = "7de74729";
+$dbname = "chatbot_db";
+
+function getMassage($text,$uid)
 {
 	$file = file_get_contents('text.json');
 	$data = json_decode($file, true);
 	unset($file);
-
-	// try {
-	// $conn = new PDO($dsn, $username, $password, $options);
-	// // set the PDO error mode to exception
-	// $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	// $sql = "INSERT INTO test (msg)
-	// VALUES ('John')";
-	// // use exec() because no results are returned
-	// 	$conn->exec($sql);
-	// 	return "New record created successfully";
-	// }
-	// catch(PDOException $e)
-	// {
-	// 	// echo $sql . "<br>" . $e->getMessage();
-	// 	return $e->getMessage();
-	// }
-
-	$servername = "ap-cdbr-azure-southeast-b.cloudapp.net";
-	$username = "bc4dcc5c7e5a47";
-	$password = "7de74729";
-	$dbname = "chatbot_db";
 
 	// Create connection
 	$conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -80,12 +64,11 @@ function getMassage($text)
 	    // die("Connection failed: " . mysqli_connect_error());
 	    return mysqli_connect_error();
 	}
-
-	$sql = "INSERT INTO MyGuests (firstname, lastname, email)
-	VALUES ('John', 'Doe', 'john@example.com')";
-
+	$sql = "SELECT COUNT(*) FROM users WHERE uid_line ='".$uid."';";
 	if (mysqli_query($conn, $sql)) {
-	    return "New record created successfully";
+		$result = mysqli_query($conn, $sql);
+	    // return "New record created successfully";
+	    return $result;
 	} else {
 	    return "Error: " . $sql . "<br>" . mysqli_error($conn);
 	}
