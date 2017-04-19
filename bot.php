@@ -70,14 +70,15 @@ function getMassage($text)
 
 	$servername = "ap-cdbr-azure-southeast-b.cloudapp.net";
 	$username = "bc4dcc5c7e5a47";
-	$password = "bc4dcc5c7e5a47";
+	$password = "7de74729";
 	$dbname = "chatbot_db";
 
 	// Create connection
 	$conn = mysqli_connect($servername, $username, $password, $dbname);
 	// Check connection
 	if (!$conn) {
-	    die("Connection failed: " . mysqli_connect_error());
+	    // die("Connection failed: " . mysqli_connect_error());
+	    return mysqli_connect_error();
 	}
 
 	$sql = "INSERT INTO MyGuests (firstname, lastname, email)
