@@ -46,20 +46,38 @@ if (!is_null($events['events'])) {
 	}
 }
 
+$dsn = 'mysql:host=ap-cdbr-azure-southeast-b.cloudapp.net;port=3307;dbname=chatbot_db';
+$username = 'bc4dcc5c7e5a47';
+$password = '7de74729';
+$options = array(
+    PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+); 
+
+$conn = new PDO($dsn, $username, $password, $options);
+
 function getMassage($text)
 {
-
 	$file = file_get_contents('text.json');
 	$data = json_decode($file, true);
-	unset($file);//prevent memory leaks for large json.
-	
+	unset($file);
+
+	$sql = "INSERT INTO test(text) VALUES ('test')";
+	if(mysqli_query($conn, $sql)) {
+    	echo "New record created successfully";
+	} else {
+	    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+	}
+
+	mysqli_close($conn);
+	//prevent memory leaks for large json.
 	if (isset($data[$text])) {
 		return $data[$text];
 	}else{
 		$data[$text] = '';
 		//save the file
 		file_put_contents('text.json',json_encode($data));
-		unset($data);//release memory
+		//release memory
+		unset($data);
 		return $text;
 	}
 }
