@@ -69,7 +69,7 @@ function getMassage($text,$uid)
 	if (mysqli_query($conn, $sql)) {
 		$result = mysqli_query($conn, $sql);
 	    // return "New record created successfully";
-	    return $result;
+	    return '$result';
 	} else {
 	    return "Error: " . $sql . "<br>" . mysqli_error($conn);
 	}
