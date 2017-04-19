@@ -46,36 +46,52 @@ if (!is_null($events['events'])) {
 	}
 }
 
-$dsn = 'mysql:host=ap-cdbr-azure-southeast-b.cloudapp.net;dbname=chatbot_db';
-$username = 'bc4dcc5c7e5a47';
-$password = '7de74729';
-$options = array(
-    PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
-); 
-
-
 function getMassage($text)
 {
 	$file = file_get_contents('text.json');
 	$data = json_decode($file, true);
 	unset($file);
 
-	try {
-	$conn = new PDO($dsn, $username, $password, $options);
-	// set the PDO error mode to exception
-	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	$sql = "INSERT INTO test (msg)
-	VALUES ('John')";
-	// use exec() because no results are returned
-		$conn->exec($sql);
-		return "New record created successfully";
+	// try {
+	// $conn = new PDO($dsn, $username, $password, $options);
+	// // set the PDO error mode to exception
+	// $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	// $sql = "INSERT INTO test (msg)
+	// VALUES ('John')";
+	// // use exec() because no results are returned
+	// 	$conn->exec($sql);
+	// 	return "New record created successfully";
+	// }
+	// catch(PDOException $e)
+	// {
+	// 	// echo $sql . "<br>" . $e->getMessage();
+	// 	return $e->getMessage();
+	// }
+
+	$servername = "ap-cdbr-azure-southeast-b.cloudapp.net";
+	$username = "bc4dcc5c7e5a47";
+	$password = "bc4dcc5c7e5a47";
+	$dbname = "chatbot_db";
+
+	// Create connection
+	$conn = mysqli_connect($servername, $username, $password, $dbname);
+	// Check connection
+	if (!$conn) {
+	    die("Connection failed: " . mysqli_connect_error());
 	}
-	catch(PDOException $e)
-	{
-		// echo $sql . "<br>" . $e->getMessage();
-	return $e->getMessage();
-		
+
+	$sql = "INSERT INTO MyGuests (firstname, lastname, email)
+	VALUES ('John', 'Doe', 'john@example.com')";
+
+	if (mysqli_query($conn, $sql)) {
+	    return "New record created successfully";
+	} else {
+	    return "Error: " . $sql . "<br>" . mysqli_error($conn);
 	}
+
+	mysqli_close($conn);
+
+
 	//prevent memory leaks for large json.
 	if (isset($data[$text])) {
 		return $data[$text];
