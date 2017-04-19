@@ -46,7 +46,7 @@ if (!is_null($events['events'])) {
 	}
 }
 
-$dsn = 'mysql:host=ap-cdbr-azure-southeast-b.cloudapp.net;port=3307;dbname=chatbot_db';
+$dsn = 'mysql:host=ap-cdbr-azure-southeast-b.cloudapp.net;port=3306;dbname=chatbot_db';
 $username = 'bc4dcc5c7e5a47';
 $password = '7de74729';
 $options = array(
