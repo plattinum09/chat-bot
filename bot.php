@@ -56,7 +56,7 @@ function getMassage($text,$uid)
 	$file = file_get_contents('text.json');
 	$data = json_decode($file, true);
 	unset($file);
-	return $uid;
+
 	// Create connection
 	$conn = mysqli_connect($servername, $username, $password, $dbname);
 	// Check connection
@@ -65,7 +65,7 @@ function getMassage($text,$uid)
 	    return mysqli_connect_error();
 	}
 
-	$sql = "SELECT * FROM users WHERE uid_line=".$uid."";
+	$sql = "SELECT * FROM users WHERE uid_line=1";
 	if (mysqli_query($conn, $sql)) {
 		$result = $conn->query($sql);
 		return $result->num_rows;
