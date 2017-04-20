@@ -53,7 +53,7 @@ function getMassage($text,$uid)
 	$file = file_get_contents('text.json');
 	$data = json_decode($file, true);
 	unset($file);
-	return checkUID_line($uid);
+	return checkUID_line($text,$uid);
 	//prevent memory leaks for large json.
 	if (isset($data[$text])) {
 		return $data[$text];
@@ -67,7 +67,7 @@ function getMassage($text,$uid)
 	}
 }
 
-function checkUID_line($uid){
+function checkUID_line($text,$uid){
 	$servername = "ap-cdbr-azure-southeast-b.cloudapp.net";
 	$username = "bc4dcc5c7e5a47";
 	$password = "7de74729";
@@ -76,15 +76,24 @@ function checkUID_line($uid){
 	if (!$conn) {
 	    return mysqli_connect_error();
 	}
-	$sql = "SELECT * FROM users WHERE uid_line='".$uid."'";
+	$sql 	= "SELECT * FROM users WHERE uid_line='".$uid."'";
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0) {
-		return true;
+		if ($row["status"] === 0 ) {
+			while($row = $result->fetch_assoc()) {
+		        if ($row["id_card"] == null) {
+					$sql 	= "UPDATE users SET id_card='".$text."', status=1 WHERE uid_line='".$uid."'";
+					$result = $conn->query($sql);
+					return "ขอบคุณที่กรอกหมายเลขบัตรประชาชน ค่ะ";
+				}
+		    }
+		}else{
+			return 'ข้อมูลครบ';
+		}
 	}else{
 		// $sql = " * FROM users WHERE uid_line='".$uid."'";
-		$sql = "INSERT INTO users (uid_line) VALUES ('".$uid."')";
+		$sql 	= "INSERT INTO users (uid_line) VALUES ('".$uid."')";
 		$result = $conn->query($sql);
-
 		return "หมายเลขบัตรประชาชนหมายเลขอะไร ค่ะ";
 	}
 	mysqli_close($conn);
