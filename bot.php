@@ -15,34 +15,35 @@ if (!is_null($events['events'])) {
 			$text = $event['message']['text'];
 			// Get replyToken
 			$replyToken = $event['replyToken'];
+			foreach (getMassage($text,$event['source']['userId'])as $key => $value) {
+				// Build message to reply back
+				$messages = [
+					'type' => 'text',
+					'text' =>  $value
+				];
 
-			// Build message to reply back
-			$messages = [
-				'type' => 'text',
-				'text' => getMassage($text,$event['source']['userId'])
-			];
+				// Make a POST Request to Messaging API to reply to sender
+				$url = 'https://api.line.me/v2/bot/message/reply';
 
-			// Make a POST Request to Messaging API to reply to sender
-			$url = 'https://api.line.me/v2/bot/message/reply';
+				$data = [
+					'replyToken' => $replyToken,
+					'messages' => [$messages],
+				];
 
-			$data = [
-				'replyToken' => $replyToken,
-				'messages' => [$messages],
-			];
+				$post = json_encode($data);
+				$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
 
-			$post = json_encode($data);
-			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+				$ch = curl_init($url);
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+				curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+				$result = curl_exec($ch);
+				curl_close($ch);
 
-			$ch = curl_init($url);
-			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-			$result = curl_exec($ch);
-			curl_close($ch);
-
-			echo $result . "\r\n";
+				echo $result . "\r\n";
+			}
 		}
 	}
 }
@@ -85,21 +86,21 @@ function checkUID_line($text,$uid){
 		        if ($row["id_card"] == null) {
 					$sql 	= "UPDATE users SET id_card='".$text."' WHERE uid_line='".$uid."'";
 					$result = $conn->query($sql);
-					return "ขอบคุณที่กรอกหมายเลขบัตรประชาชน ค่ะ";
+					return ["ขอบคุณที่กรอกหมายเลขบัตรประชาชน ค่ะ","วาชาบิ อยากทราบชื่อจริง ตัวเองจังเลย"];
 				}else if($row["name"] == null){
 					$sql 	= "UPDATE users SET name='".$text."', status=1 WHERE uid_line='".$uid."'";
 					$result = $conn->query($sql);
-					return "สวัส ดีค่ะ คุณ   ".$text;
+					return ["สวัส ดีค่ะ คุณ   ".$text];
 				}
 			}else{
-				return 'ข้อมูลครบ';
+				return ['ข้อมูลครบ'];
 			}
 		}
 	}else{
 		// $sql = " * FROM users WHERE uid_line='".$uid."'";
 		$sql 	= "INSERT INTO users (uid_line) VALUES ('".$uid."')";
 		$result = $conn->query($sql);
-		return "หมายเลขบัตรประชาชนหมายเลขอะไร ค่ะ";
+		return ["หมายเลขบัตรประชาชนหมายเลขอะไร ค่ะ"];
 	}
 	mysqli_close($conn);
 }
