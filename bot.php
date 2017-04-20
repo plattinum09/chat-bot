@@ -66,16 +66,16 @@ function getMassage($text,$uid)
 	}
 
 	$sql = "SELECT * FROM users WHERE uid_line=1";
+	$result = mysqli_query($conn,$sql);
+	return count($result);
 	if (mysqli_query($conn, $sql)) {
-		$result = mysqli_query($conn,$sql);
-		return $result->num_rows;
+		
 	    // return "New record created successfully";
 	} else {
 	    return "Error: " . $sql . "<br>" . mysqli_error($conn);
 	}
 
 	mysqli_close($conn);
-
 
 	//prevent memory leaks for large json.
 	if (isset($data[$text])) {
