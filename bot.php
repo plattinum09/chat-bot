@@ -65,8 +65,11 @@ function getMassage($text,$uid)
 	    return mysqli_connect_error();
 	}
 
-	$sql = "SELECT * FROM users WHERE uid_line=1";
-	$result = mysqli_query($conn,$sql);
+	// $sql = "SELECT * FROM users WHERE uid_line=1";
+	// $result = mysqli_query($conn,$sql);
+
+	$sql = "SELECT id FROM users";
+	$result = $conn->query($sql);
 	return count($result);
 	if (mysqli_query($conn, $sql)) {
 		
