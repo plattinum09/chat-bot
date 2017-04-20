@@ -56,7 +56,7 @@ function getMassage($text,$uid)
 	$file = file_get_contents('text.json');
 	$data = json_decode($file, true);
 	unset($file);
-
+	return $uid;
 	// Create connection
 	$conn = mysqli_connect($servername, $username, $password, $dbname);
 	// Check connection
