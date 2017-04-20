@@ -84,7 +84,7 @@ function checkUID_line($text,$uid){
 		        if ($row["id_card"] == null) {
 					$sql 	= "UPDATE users SET id_card='".$text."' WHERE uid_line='".$uid."'";
 					$result = $conn->query($sql);
-					return "ขอบคุณที่กรอกหมายเลขบัตรประชาชน ค่ะ        วาชาบิ อยากทราบชื่อ ตัวเองจัง";
+					return "วาชาบิ อยากทราบชื่อ ตัวเองจัง";
 				}else if($row["name"] == null){
 					$sql 	= "UPDATE users SET name='".$text."', status=1 WHERE uid_line='".$uid."'";
 					$result = $conn->query($sql);
