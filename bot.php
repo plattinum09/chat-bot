@@ -79,16 +79,16 @@ function checkUID_line($text,$uid){
 	$sql 	= "SELECT * FROM users WHERE uid_line='".$uid."'";
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0) {
-		if ($row["status"] === 0 ) {
-			while($row = $result->fetch_assoc()) {
+		while($row = $result->fetch_assoc()) {
+			if ($row["status"] === 0 ) {
 		        if ($row["id_card"] == null) {
 					$sql 	= "UPDATE users SET id_card='".$text."', status=1 WHERE uid_line='".$uid."'";
 					$result = $conn->query($sql);
 					return "ขอบคุณที่กรอกหมายเลขบัตรประชาชน ค่ะ";
 				}
-		    }
-		}else{
-			return 'ข้อมูลครบ';
+			}else{
+				return 'ข้อมูลครบ';
+			}
 		}
 	}else{
 		// $sql = " * FROM users WHERE uid_line='".$uid."'";
