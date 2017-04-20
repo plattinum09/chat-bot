@@ -98,7 +98,7 @@ function checkUID_line($text,$uid){
 		// $sql = " * FROM users WHERE uid_line='".$uid."'";
 		$sql 	= "INSERT INTO users (uid_line) VALUES ('".$uid."')";
 		$result = $conn->query($sql);
-		return ["หมายเลขบัตรประชาชนหมายเลขอะไร ค่ะ"];
+		return "หมายเลขบัตรประชาชนหมายเลขอะไร ค่ะ";
 	}
 	mysqli_close($conn);
 }
