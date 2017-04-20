@@ -80,12 +80,13 @@ function checkUID_line($text,$uid){
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0) {
 		while($row = $result->fetch_assoc()) {
-			if ($row["status"] === 0 ) {
+			if ($row["status"] == 0 ) {
 		        if ($row["id_card"] == null) {
 					$sql 	= "UPDATE users SET id_card='".$text."', status=1 WHERE uid_line='".$uid."'";
 					$result = $conn->query($sql);
 					return "ขอบคุณที่กรอกหมายเลขบัตรประชาชน ค่ะ";
 				}
+				return "มีเลขบัตรประชาชน ค่ะ";
 			}else{
 				return 'ข้อมูลครบ';
 			}
