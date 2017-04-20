@@ -46,10 +46,7 @@ if (!is_null($events['events'])) {
 	}
 }
 
-$servername = "ap-cdbr-azure-southeast-b.cloudapp.net";
-$username = "bc4dcc5c7e5a47";
-$password = "7de74729";
-$dbname = "chatbot_db";
+
 
 function getMassage($text,$uid)
 {
@@ -57,6 +54,10 @@ function getMassage($text,$uid)
 	$data = json_decode($file, true);
 	unset($file);
 
+	$servername = "ap-cdbr-azure-southeast-b.cloudapp.net";
+	$username = "bc4dcc5c7e5a47";
+	$password = "7de74729";
+	$dbname = "chatbot_db";
 	// Create connection
 	$conn = mysqli_connect($servername, $username, $password, $dbname);
 	// Check connection
