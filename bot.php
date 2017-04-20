@@ -53,34 +53,7 @@ function getMassage($text,$uid)
 	$file = file_get_contents('text.json');
 	$data = json_decode($file, true);
 	unset($file);
-
-	$servername = "ap-cdbr-azure-southeast-b.cloudapp.net";
-	$username = "bc4dcc5c7e5a47";
-	$password = "7de74729";
-	$dbname = "chatbot_db";
-	// Create connection
-	$conn = mysqli_connect($servername, $username, $password, $dbname);
-	// Check connection
-	if (!$conn) {
-	    // die("Connection failed: " . mysqli_connect_error());
-	    return mysqli_connect_error();
-	}
-
-	// $sql = "SELECT * FROM users WHERE uid_line=1";
-	// $result = mysqli_query($conn,$sql);
-
-	$sql = "SELECT id FROM users";
-	$result = $conn->query($sql);
-	return count($result);
-	if (mysqli_query($conn, $sql)) {
-		
-	    // return "New record created successfully";
-	} else {
-	    return "Error: " . $sql . "<br>" . mysqli_error($conn);
-	}
-
-	mysqli_close($conn);
-
+	return checkUID_line($uid);
 	//prevent memory leaks for large json.
 	if (isset($data[$text])) {
 		return $data[$text];
@@ -92,6 +65,25 @@ function getMassage($text,$uid)
 		unset($data);
 		return $text;
 	}
+}
+
+function checkUID_line($uid){
+	$servername = "ap-cdbr-azure-southeast-b.cloudapp.net";
+	$username = "bc4dcc5c7e5a47";
+	$password = "7de74729";
+	$dbname = "chatbot_db";
+	$conn = mysqli_connect($servername, $username, $password, $dbname);
+	if (!$conn) {
+	    return mysqli_connect_error();
+	}
+	$sql = "SELECT * FROM users WHERE uid_line='".$uid."'";
+	$result = $conn->query($sql);
+	if ($result->num_rows > 0) {
+		return true;
+	}else{
+		return false;
+	}
+	mysqli_close($conn);
 }
 
 echo "OK";
