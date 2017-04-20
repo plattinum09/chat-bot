@@ -15,14 +15,11 @@ if (!is_null($events['events'])) {
 			$text = $event['message']['text'];
 			// Get replyToken
 			$replyToken = $event['replyToken'];
-			// foreach (getMassage($text,$event['source']['userId']) as $key => $value) {
-				// Build message to reply back
-				$messages = [
-					'type' => 'text',
-					'text' =>  getMassage($text,$event['source']['userId'])
-				];
-
-			// }
+			// Build message to reply back
+			$messages = [
+				'type' => 'text',
+				'text' =>  getMassage($text,$event['source']['userId'])
+			];
 
 			// Make a POST Request to Messaging API to reply to sender
 			$url = 'https://api.line.me/v2/bot/message/reply';
@@ -87,14 +84,14 @@ function checkUID_line($text,$uid){
 		        if ($row["id_card"] == null) {
 					$sql 	= "UPDATE users SET id_card='".$text."' WHERE uid_line='".$uid."'";
 					$result = $conn->query($sql);
-					return ["ขอบคุณที่กรอกหมายเลขบัตรประชาชน ค่ะ","วาชาบิ อยากทราบชื่อจริง ตัวเองจังเลย"];
+					return "ขอบคุณที่กรอกหมายเลขบัตรประชาชน ค่ะ <br> วาชาบิ อยากทราบชื่อ ตัวเองจัง";
 				}else if($row["name"] == null){
 					$sql 	= "UPDATE users SET name='".$text."', status=1 WHERE uid_line='".$uid."'";
 					$result = $conn->query($sql);
-					return ["สวัส ดีค่ะ คุณ   ".$text];
+					return "สวัส ดีค่ะ คุณ   ".$text;
 				}
 			}else{
-				return ['ข้อมูลครบ'];
+				return 'ข้อมูลครบ';
 			}
 		}
 	}else{
