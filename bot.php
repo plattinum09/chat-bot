@@ -81,7 +81,11 @@ function checkUID_line($uid){
 	if ($result->num_rows > 0) {
 		return true;
 	}else{
-		return false;
+		// $sql = " * FROM users WHERE uid_line='".$uid."'";
+		$sql = "INSERT INTO users (uid_line) VALUES ('".$uid."')";
+		$result = $conn->query($sql);
+
+		return "หมายเลขบัตรประชาชนหมายเลขอะไร ค่ะ";
 	}
 	mysqli_close($conn);
 }
