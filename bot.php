@@ -16,9 +16,35 @@ if (!is_null($events['events'])) {
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 			// Build message to reply back
+			// $messages = [
+			// 	'type' => 'text',
+			// 	'text' =>  getMassage($text,$event['source']['userId'])
+			// ];
+
 			$messages = [
-				'type' => 'text',
-				'text' =>  getMassage($text,$event['source']['userId'])
+				"type"=> "buttons",
+				"thumbnailImageUrl"=> "https://example.com/bot/images/image.jpg",
+				"title"=> "Menu",
+				"text"=> "Please select",
+				"actions"=> [
+					[
+						"type"=> "postback",
+						"label"=> "Buy",
+						"data"=> "action=buy&itemid=123"
+					]
+					,
+					[
+						"type"=> "postback",
+						"label"=> "Add to cart",
+						"data"=> "action=add&itemid=123"
+					]
+					,
+					[
+						"type"=> "uri",
+						"label"=> "View detail",
+						"uri"=> "http://example.com/page/123"
+					]
+				]
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
@@ -44,6 +70,7 @@ if (!is_null($events['events'])) {
 			echo $result . "\r\n";
 		}
 	}
+
 }
 
 
@@ -90,7 +117,7 @@ function checkUID_line($text,$uid){
 					$result = $conn->query($sql);
 					return "สวัส ดีค่ะ คุณ   ".$text;
 				}
-			}else{
+			}else if($row["status"] == 1){
 				return 'ข้อมูลครบ';
 			}
 		}
