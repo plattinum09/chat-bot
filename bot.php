@@ -22,29 +22,37 @@ if (!is_null($events['events'])) {
 			// ];
 
 			$messages = [
-				"type"=> "buttons",
-				"thumbnailImageUrl"=> "https://www.w3schools.com/css/img_fjords.jpg",
-				"title"=> "Menu",
-				"text"=> "Please select",
-				"actions"=> [
-					[
-						"type"=> "postback",
-						"label"=> "Buy",
-						"data"=> "action=buy&itemid=123"
+				"type"=> "template",
+  				"altText"=> "this is a buttons template",
+  				"template"=> [
+					"type"=> "buttons",
+					"thumbnailImageUrl"=> "https://www.w3schools.com/css/img_fjords.jpg",
+					"title"=> "Menu",
+					"text"=> "Please select",
+					"type"=> "buttons",
+					"thumbnailImageUrl"=> "https://www.w3schools.com/css/img_fjords.jpg",
+					"title"=> "Menu",
+					"text"=> "Please select",
+					"actions"=> [
+						[
+							"type"=> "postback",
+							"label"=> "Buy",
+							"data"=> "action=buy&itemid=123"
+						]
+						,
+						[
+							"type"=> "postback",
+							"label"=> "Add to cart",
+							"data"=> "action=add&itemid=123"
+						]
+						,
+						[
+							"type"=> "uri",
+							"label"=> "View detail",
+							"uri"=> "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRLwfosW6PfuMKaPnabKzj1UzAfOQpxZzqVvkFzEonna0iSUgyVWg"
+						]
 					]
-					,
-					[
-						"type"=> "postback",
-						"label"=> "Add to cart",
-						"data"=> "action=add&itemid=123"
-					]
-					,
-					[
-						"type"=> "uri",
-						"label"=> "View detail",
-						"uri"=> "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRLwfosW6PfuMKaPnabKzj1UzAfOQpxZzqVvkFzEonna0iSUgyVWg"
-					]
-				]
+			  	]
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
