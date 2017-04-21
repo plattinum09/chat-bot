@@ -23,7 +23,7 @@ if (!is_null($events['events'])) {
 
 			$messages = [
 				"type"=> "buttons",
-				"thumbnailImageUrl"=> "https://example.com/bot/images/image.jpg",
+				"thumbnailImageUrl"=> "https://www.w3schools.com/css/img_fjords.jpg",
 				"title"=> "Menu",
 				"text"=> "Please select",
 				"actions"=> [
@@ -42,7 +42,7 @@ if (!is_null($events['events'])) {
 					[
 						"type"=> "uri",
 						"label"=> "View detail",
-						"uri"=> "http://example.com/page/123"
+						"uri"=> "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRLwfosW6PfuMKaPnabKzj1UzAfOQpxZzqVvkFzEonna0iSUgyVWg"
 					]
 				]
 			];
